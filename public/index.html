@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>J.A.R.V.I.S. · Digital Twin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="shell">
+  <div class="c tl"></div><div class="c tr"></div>
+  <div class="c bl"></div><div class="c br"></div>
+  <input type="file" id="file-input" accept=".json" style="display:none"/>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="logo">J<em>.</em>A<em>.</em>R<em>.</em>V<em>.</em>I<em>.</em>S</div>
+    <div class="topbar-center">
+      <div class="twin-label">DIGITAL TWIN · PERSISTENT SOUL · LOCAL AI</div>
+      <div class="identity-bar" id="identity-bar">INITIALIZING NEURAL NETWORK...</div>
+    </div>
+    <div class="topbar-right">
+      <div class="hud-stat"><span id="hud-time">00:00:00</span><span class="hud-lbl">TIME</span></div>
+      <div class="hud-stat"><span id="hud-sessions">1</span><span class="hud-lbl">SESSION</span></div>
+      <div class="hud-stat"><span id="hud-memories">0</span><span class="hud-lbl">MEMORIES</span></div>
+      <div class="live-dot" id="live-dot"></div>
+      <span id="status-txt">BOOTING</span>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- LEFT: SOUL PANEL -->
+    <aside class="soul-panel">
+      <div class="sp-title">IDENTITY HELIX</div>
+      <div class="helix-wrap"><canvas id="helix" width="92" height="110"></canvas></div>
+
+      <div class="sp-title">PERSONALITY MATRIX</div>
+      <div id="traits"></div>
+
+      <div class="sp-title">EMOTIONAL STATE</div>
+      <div class="mood-orb-wrap">
+        <div class="mood-orb" id="mood-orb"></div>
+        <div class="mood-label" id="mood-label">NEUTRAL</div>
+      </div>
+
+      <div class="sp-title">MEMORY CORE <span id="mem-count" class="dim-label"></span></div>
+      <div class="memory-list" id="memory-list">
+        <div class="memory-item">Awaiting first memory...</div>
+      </div>
+    </aside>
+
+    <!-- CENTER: CHAT -->
+    <section class="chat-area">
+      <!-- Live HUD strip -->
+      <div class="hud-strip" id="hud-strip">
+        <div class="hud-pill" id="pill-weather">🌤 Loading weather...</div>
+        <div class="hud-pill" id="pill-news">📡 Loading news...</div>
+        <div class="hud-pill" id="pill-date">📅 —</div>
+      </div>
+
+      <div class="messages" id="messages">
+        <div class="welcome" id="welcome">
+          <div class="welcome-title">J.A.R.V.I.S.</div>
+          <div class="welcome-sub">
+            DIGITAL TWIN PROTOCOL ACTIVE<br/>
+            MEMORY: UNLIMITED · VOICE: ENABLED · SEARCH: LIVE
+          </div>
+          <div class="returning-banner" id="returning-banner" style="display:none"></div>
+          <div class="cmd-grid">
+            <div class="cmd-card" onclick="quickCmd('Tell me who you are and what drives you')">
+              <div class="cmd-icon">🧬</div><div>BUILD MY TWIN</div>
+            </div>
+            <div class="cmd-card" onclick="quickCmd('What is the weather right now?')">
+              <div class="cmd-icon">🌦</div><div>WEATHER</div>
+            </div>
+            <div class="cmd-card" onclick="quickCmd('What are the latest news headlines?')">
+              <div class="cmd-icon">📡</div><div>NEWS BRIEF</div>
+            </div>
+            <div class="cmd-card" onclick="quickCmd('Open YouTube')">
+              <div class="cmd-icon">▶</div><div>OPEN APP</div>
+            </div>
+            <div class="cmd-card" onclick="quickCmd('What time and date is it?')">
+              <div class="cmd-icon">🕐</div><div>TIME & DATE</div>
+            </div>
+            <div class="cmd-card" onclick="quickCmd('Search for: artificial intelligence latest breakthroughs')">
+              <div class="cmd-icon">🔍</div><div>WEB SEARCH</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="input-zone">
+        <div class="input-row">
+          <textarea id="txt" rows="1" placeholder="SPEAK YOUR COMMAND OR QUESTION..."></textarea>
+          <div class="btn-row">
+            <button class="btn mic-btn" id="mic-btn">🎙 MIC</button>
+            <button class="btn send-btn" id="send-btn">TRANSMIT</button>
+            <button class="btn export-btn" id="export-btn" title="Export soul">⬇ SOUL</button>
+            <button class="btn import-btn" id="import-btn" title="Import soul">⬆ LOAD</button>
+          </div>
+        </div>
+        <div class="hint">
+          SAY: "open youtube" · "search for X" · "what's the weather" · "latest news" · ENTER TO SEND
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: INTEL PANEL -->
+    <aside class="right-panel">
+      <div class="rp-title">TWIN GROWTH</div>
+      <div class="growth-ring">
+        <svg viewBox="0 0 80 80">
+          <defs><filter id="gf">
+            <feGaussianBlur stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter></defs>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(0,212,255,0.07)" stroke-width="7"/>
+          <circle id="growth-circle" cx="40" cy="40" r="32" fill="none" stroke="#00d4ff"
+            stroke-width="7" stroke-dasharray="201" stroke-dashoffset="201"
+            stroke-linecap="round" transform="rotate(-90 40 40)" filter="url(#gf)"/>
+          <text x="40" y="37" text-anchor="middle" fill="#00d4ff" font-family="Orbitron"
+            font-size="11" font-weight="700" id="growth-pct">0%</text>
+          <text x="40" y="50" text-anchor="middle" fill="rgba(0,212,255,0.35)"
+            font-family="Share Tech Mono" font-size="6">TWIN</text>
+        </svg>
+      </div>
+
+      <div class="rp-title">LIVE INTEL</div>
+      <div class="intel-box" id="intel-weather">
+        <div class="intel-icon">🌤</div>
+        <div class="intel-data">
+          <div id="intel-temp">—°C</div>
+          <div id="intel-desc" class="intel-sub">fetching...</div>
+        </div>
+      </div>
+
+      <div class="rp-title">CAPABILITIES</div>
+      <div class="cap-list">
+        <div class="cap-item active">🔍 Web Search</div>
+        <div class="cap-item active">🌦 Weather</div>
+        <div class="cap-item active">📡 News Feed</div>
+        <div class="cap-item active">🚀 Open Apps</div>
+        <div class="cap-item active">🧠 Infinite Memory</div>
+        <div class="cap-item active">🎙 Voice I/O</div>
+      </div>
+
+      <div class="rp-title">STATS</div>
+      <div class="rp-stat"><span>EXCHANGES</span><span id="r-exchanges">0</span></div>
+      <div class="rp-stat"><span>MEMORIES</span><span id="r-memories">0</span></div>
+      <div class="rp-stat"><span>SESSIONS</span><span id="r-sessions">1</span></div>
+      <div class="rp-stat"><span>STORAGE</span><span class="green">SQLite</span></div>
+      <div class="rp-stat"><span>MEMORY</span><span class="green">∞</span></div>
+
+      <div class="rp-title">RECENT INSIGHTS</div>
+      <div id="insights-log"></div>
+    </aside>
+
+  </div>
+</div>
+
+<script src="js/jarvis.js"></script>
+</body>
+</html>

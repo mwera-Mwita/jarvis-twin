@@ -1,0 +1,18 @@
+{
+  "name": "jarvis-complete",
+  "version": "2.0.0",
+  "description": "J.A.R.V.I.S. — Complete Digital Twin AI with web search, memory, and app control",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "open": "^8.4.2",
+    "better-sqlite3": "^9.4.3",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  }
+}
